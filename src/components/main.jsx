@@ -5,8 +5,20 @@ const Main = () => {
   const [userData, setUserData] = useState()
 
   useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem("userData")))
+    const data = JSON.parse(localStorage.getItem("userData"))
+    if (data) {
+      setUserData(data)
+    }
   }, [])
+
+  const renderAge = (birthYear) => {
+    const usersAge = new Date().getFullYear() - Number(birthYear)
+    const lastOne = Number(usersAge.toString().slice(-1))
+    if (usersAge > 4 && usersAge < 15) return `${usersAge} лет`
+    if ([2, 3, 4].includes(lastOne)) return `${usersAge} года`
+    if (lastOne === 1) return `${usersAge} год`
+    return `${usersAge} лет`
+  }
 
   return (
     <div className="container mt-3">
@@ -25,11 +37,13 @@ const Main = () => {
             </div>
             <div>
               <strong>Год рождения:</strong>&nbsp;
-              {userData.birthYear}
+              {userData.birthYear} ({`${renderAge(userData.birthYear)}`})
             </div>
             <div>
               <strong>Портфолио:</strong>&nbsp;
-              {userData.portfolio}
+              <a href={userData.portfolio} target="_blank" rel="noreferrer">
+                {userData.portfolio}
+              </a>
             </div>
           </div>
           <Link to={"/create"} href="#" className="btn btn-primary">

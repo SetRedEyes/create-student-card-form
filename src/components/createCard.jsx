@@ -12,7 +12,6 @@ const CreateCard = () => {
     birthYear: "",
     portfolio: ""
   })
-
   const [createdCard, setCreatedCard] = useState(false)
   const [errors, setErrors] = useState({})
 
@@ -42,9 +41,13 @@ const CreateCard = () => {
       isUrl: { message: "Поле 'Портфолио' должно быть ссылкой" }
     }
   }
+
   useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("userData")))
-    setCreatedCard(true)
+    const data = localStorage.getItem("userData")
+    if (data) {
+      setData(JSON.parse(data))
+      setCreatedCard(true)
+    }
   }, [])
 
   useEffect(() => {
@@ -64,7 +67,6 @@ const CreateCard = () => {
     const isValid = validate()
     if (!isValid) return
     setCreatedCard(true)
-    console.log(createdCard)
     localStorage.setItem("userData", JSON.stringify(data))
     alert("Обновлено!")
     history.push("/")
