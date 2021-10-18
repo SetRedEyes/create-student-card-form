@@ -14,7 +14,7 @@ const Card = () => {
   }, [])
 
   const renderContent = (type, value) => {
-    return renderTemplates[type] || value
+    return renderTemplates[type] ?? value
   }
 
   const renderTemplates = {
