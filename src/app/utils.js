@@ -1,3 +1,16 @@
+export const calculateAge = (year) => {
+  return new Date().getFullYear() - Number(year)
+}
+
+export function plural(number, titles) {
+  const cases = [2, 0, 1, 1, 1, 2]
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ]
+}
+
 export function validator(data, config) {
   const errors = {}
   function validate(validateMethod, data, config) {
@@ -9,17 +22,15 @@ export function validator(data, config) {
       }
 
       case "isUrl": {
-        const urlRegExp = /^\S+:\/\/\S+\.\S+$/g
+        // eslint-disable-next-line
+        const urlRegExp = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/g
         statusValidate = !urlRegExp.test(data)
-        break
-      }
-      case "min": {
-        statusValidate = data.length < config.value
         break
       }
 
       case "isValidDate": {
-        statusValidate = Number(data) > config.value
+        statusValidate =
+          Number(data) > config.value || data.length < config.value
         break
       }
       default:
