@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import TextField from "./textField"
-import { validator } from "../utils"
+import { validator } from "../../utils/utils"
 import { Link, useHistory } from "react-router-dom"
 import { FIELDS, localStorageId } from "../constants"
 

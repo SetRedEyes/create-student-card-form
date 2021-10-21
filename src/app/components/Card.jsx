@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { FIELDS, localStorageId } from "../constants"
-import { calculateAge, plural } from "../utils"
+import { calculateAge, plural } from "../../utils/utils"
 
 const Card = () => {
   const [data, setData] = useState()
